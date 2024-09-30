@@ -7,7 +7,6 @@ function Wallet() {
     const [network, setNetwork] = useState(null);
     const [error, setError] = useState(null);
 
-    // connect to metamask
     const connectWallet = async () =>{
         console.log("working")
         if(window.ethereum){
@@ -56,7 +55,7 @@ function Wallet() {
             window.ethereum.on('chainChanged', handlechainChanged);
 
             return () => {
-                window.ethereum.removeListener('accountsChangeed', handleAccountsChanged);
+                window.ethereum.removeListener('accountsChanged', handleAccountsChanged);
                 window.ethereum.removeListener('chainChanged', handlechainChanged);
             };
         }

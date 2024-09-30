@@ -1,5 +1,7 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import Wallet from "./components/Wallet";
+import "./App.css";
+
 function App() {
   const account = Wallet();
   const [address, setAddress] = useState('');
@@ -11,52 +13,49 @@ function App() {
   const handleCheckBalance = () => {
     account.fetchBalance(address);
   };
+
   return (
-    
-    <div className="min-h-screen bg-gray-100 p-8">
-     
-       <h1 className="text-2xl font-bold mb-4">Ethereum Wallet Connection</h1>
-       
+    <div className="app-container">
+      <h1 className="title">Ethereum Wallet Connection</h1>
+
       {account.account ? (
-        <div className="mb-4">
+        <div className="account-info">
           <p><strong>Connected Account:</strong> {account.account}</p>
           <p><strong>Network:</strong> {account.network ? account.network.name : "Unknown"}</p>
         </div>
       ) : (
         <button
           onClick={() => account.connectWallet()}
-          className="bg-blue-500 text-white px-4 py-2 rounded-md mb-4"
+          className="connect-button"
         >
           Connect Wallet
         </button>
       )}
 
-      {/* Error Handling */}
-      {account.error && <p className="text-red-500 mb-4">{account.error}</p>}
+      {account.error && <p className="error-message">{account.error}</p>}
 
-      {/* Address Input and Balance */}
-      <div className="mb-4">
+      <div className="balance-check">
         <input
           type="text"
           placeholder="Enter Ethereum address"
           value={address}
           onChange={handleInputChange}
-          className="border p-2 w-full mb-2"
+          className="address-input"
         />
         <button
           onClick={handleCheckBalance}
-          className="bg-green-500 text-white px-4 py-2 rounded-md"
+          className="check-balance-button"
         >
           Check Balance
         </button>
       </div>
 
       {account.balance && (
-        <div className="mt-4">
+        <div className="balance-display">
           <p><strong>Balance:</strong> {account.balance} ETH</p>
         </div>
       )}
-      </div>
+    </div>
   );
 }
 
